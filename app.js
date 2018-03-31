@@ -2,6 +2,9 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 // set up static file middleware
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -9,13 +12,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// connect to socket io
-
 app.get('/', (req, res) => {
     res.render('index');
 });
 
+io.on('connection', (socket) => {
+    console.log('User connected to app'); 
+    
+    socket.on('disconnect', (socket) => {
+        console.log('User disconnected from app');
+    });
+});
+
+
+
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Now listening to port: ${port}`);
+server.listen(port, () => {
+    console.log(`Now listening to ${port}`);
 });

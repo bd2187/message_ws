@@ -1,1 +1,3 @@
-console.log('test');
+"use strict";
+
+var server = io();
