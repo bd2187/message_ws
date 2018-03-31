@@ -26,6 +26,8 @@ io.on('connection', (socket) => {
 
     socket.on('createMessage', (data) => {
         console.log(data);
+        data.time = new Date().getTime();
+        io.emit('newMessage', data);
     });
 
     socket.on('disconnect', (socket) => {

@@ -1,20 +1,20 @@
 "use strict";
 
-var server = io();
+var socket = io();
 
-server.on('connect', () => {
+socket.on('connect', () => {
     console.log('Connected to WS');
 });
 
-server.on('disconnect', () => {
+socket.on('disconnect', () => {
     console.log('Unable to connect to WS');
 });
 
-server.on('newMessage', (data) => {
+socket.on('newMessage', (data) => {
     console.log(data);
 });
 
-server.emit('createMessage', {
+socket.emit('createMessage', {
     from: 'client',
     message: 'hello server'
 });
