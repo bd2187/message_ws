@@ -26,8 +26,10 @@ io.on('connection', (socket) => {
 
     socket.on('createMessage', (data) => {
         console.log(data);
+
+        // Send the message to all the other clients except the newly created connection
         data.time = new Date().getTime();
-        io.emit('newMessage', data);
+        socket.broadcast.emit('newMessage', data);
     });
 
     socket.on('disconnect', (socket) => {
