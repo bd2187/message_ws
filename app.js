@@ -19,12 +19,19 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('User connected to app'); 
     
+    socket.emit('newMessage', {
+        from: 'brandon',
+        message: 'how are you?'
+    });
+
+    socket.on('createMessage', (data) => {
+        console.log(data);
+    });
+
     socket.on('disconnect', (socket) => {
         console.log('User disconnected from app');
     });
 });
-
-
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
