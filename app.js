@@ -19,6 +19,14 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('User connected to app'); 
     
+    socket.emit('newUser', {
+        message: 'Welcome!'
+    });
+
+    socket.broadcast.emit('userJoinedRoom', {
+        message: 'New User joined chat room'
+    });
+
     socket.emit('newMessage', {
         from: 'brandon',
         message: 'how are you?'
@@ -26,8 +34,7 @@ io.on('connection', (socket) => {
 
     socket.on('createMessage', (data) => {
         console.log(data);
-
-        // Send the message to all the other clients except the newly created connection
+        // sending to all clients except sender
         data.time = new Date().getTime();
         socket.broadcast.emit('newMessage', data);
     });
