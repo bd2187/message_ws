@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('userJoinedRoom', generateMessage('Session', 'New User joined chat room'));
 
     socket.on('createMessage', (data, callbackFn) => {
-        socket.emit('newMessage', generateMessage(data.sender, data.message));
+        socket.broadcast.emit('newMessage', generateMessage(data.sender, data.message));
         callbackFn('Success from server.');
     });
 
