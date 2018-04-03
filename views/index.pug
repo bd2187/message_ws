@@ -6,6 +6,8 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         title Document
     body
-        p test        
+        form(id="chat-form")
+            input(type="text" id="chat-input")
+            button(type="submit") Send
         script(src="/socket.io/socket.io.js")
         script(src="/script.js")
