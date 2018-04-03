@@ -9,15 +9,15 @@ var Chat = {
         });
 
         socket.on('disconnect', () => {
-            console.log('Unable to connect to WS');
+            console.log('Disconnected from WS');
         });
                 
         socket.on('newUser', (data) => {
-            console.log(data);
+            this.appendMessage( data.sender, data.message);
         });
         
         socket.on('userJoinedRoom', (data) => {
-            console.log(data);
+            this.appendMessage( data.sender, data.message);
         });        
 
         this.chatFormEl = document.getElementById('chat-form');
@@ -28,7 +28,7 @@ var Chat = {
         this.listenForMessages();
     },
 
-    appendMessage: function(sender, message) {
+    appendMessage: function(sender = '', message = '') {
         var liEl = document.createElement('li');
         liEl.innerHTML = `${sender}: ${message}`;
         this.chatMessages.appendChild(liEl);
