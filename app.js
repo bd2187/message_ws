@@ -5,6 +5,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+const generateMessage = require('./utils/messaging.js');
+
 // set up static file middleware
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -19,13 +21,11 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('User connected to app'); 
     
-    socket.emit('newUser', {
-        message: 'Welcome!'
-    });
+    // Greets individual user
+    socket.emit('newUser', generateMessage('Admin', 'Welcome'));
 
-    socket.broadcast.emit('userJoinedRoom', {
-        message: 'New User joined chat room'
-    });
+    // Broadcast call
+    socket.broadcast.emit('userJoinedRoom', generateMessage('Session', 'New User joined chat room'));
 
     socket.emit('newMessage', {
         from: 'brandon',
