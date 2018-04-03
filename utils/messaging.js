@@ -1,7 +1,8 @@
-function generateMessage(name, message) {
+const generateMessage = (sender, message) => {
     return {
-        'name': name,
-        'message': message
+        'sender': sender,
+        'message': message,
+        'time': new Date().getTime()
     }
 }
 
