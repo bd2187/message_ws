@@ -28,11 +28,9 @@ var Chat = {
         this.listenForMessages();
     },
 
-    appendMessage: function(message) {
+    appendMessage: function(sender, message) {
         var liEl = document.createElement('li');
-        var textNode = document.createTextNode(message);
-
-        liEl.appendChild(textNode);
+        liEl.innerHTML = `${sender}: ${message}`;
         this.chatMessages.appendChild(liEl);
     },
 
@@ -47,19 +45,17 @@ var Chat = {
                 sender: 'User',
                 message: self.chatInputEl.value
             }, function(status) {
-                console.log('Send.', status);
+                console.log('Sent.', status);
 
-                self.appendMessage(self.chatInputEl.value);
+                self.appendMessage('User', self.chatInputEl.value);
                 self.chatInputEl.value = '';
             });            
         });
     },
 
     listenForMessages: function() {
-
-        var self = this;
         socket.on('newMessage', (data) => {
-            this.appendMessage(data.message);
+            this.appendMessage(data.sender, data.message);
         });
     }
 }
