@@ -23,6 +23,8 @@ socket.on('newMessage', (data) => {
 });
 
 socket.emit('createMessage', {
-    from: 'client',
-    message: 'hello server'
+    sender: 'Brandon',
+    message: 'What\'s up?'
+}, function (status) {
+    console.log('Sent.', status);
 });

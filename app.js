@@ -27,16 +27,9 @@ io.on('connection', (socket) => {
     // Broadcast call
     socket.broadcast.emit('userJoinedRoom', generateMessage('Session', 'New User joined chat room'));
 
-    socket.emit('newMessage', {
-        from: 'brandon',
-        message: 'how are you?'
-    });
-
-    socket.on('createMessage', (data) => {
-        console.log(data);
-        // sending to all clients except sender
-        data.time = new Date().getTime();
-        socket.broadcast.emit('newMessage', data);
+    socket.on('createMessage', (data, callbackFn) => {
+        socket.emit('newMessage', generateMessage(data.sender, data.message));
+        callbackFn('Success from server.');
     });
 
     socket.on('disconnect', (socket) => {
