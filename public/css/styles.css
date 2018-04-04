@@ -24,6 +24,10 @@ h1, h2, p {
 
 #chat-messages {
     padding: 1.5em;
+    height: 90vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    /* background:blue; */
 }
 
 #chat-messages li {
@@ -44,6 +48,7 @@ h1, h2, p {
     padding: 1em;
     display: flex;
     justify-content: space-around;
+    height: 10vh;
 }
 
 #chat-input {
@@ -52,9 +57,5 @@ h1, h2, p {
 }
 
 #chat-form button {
-    padding: 0.5em;
-    /* min-width: 56px; */
-    /* width: 5%;     */
-    /* width: 56px; */
     padding: 0.5em;
 }
