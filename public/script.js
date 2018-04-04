@@ -36,12 +36,12 @@ var Chat = {
 
         var hours = d.getHours();
         var minutes = d.getMinutes();
-        console.log(`${hours}:${minutes}`);
         
-
         var liEl = document.createElement('li');
         liEl.innerHTML = `${sender} ${hours}:${minutes} ${message}`;
         this.chatMessages.appendChild(liEl);
+        
+        liEl.scrollIntoView({ behavior: 'smooth' });
 
     },
 
