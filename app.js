@@ -5,6 +5,14 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+// Connect to Mongo DB
+const mongoose = require('mongoose');
+const database = require('./config/database');
+mongoose.connect(database);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.on('open', () => { console.log('connected to DB') });
+
 const generateMessage = require('./utils/messaging.js');
 
 // set up static file middleware
