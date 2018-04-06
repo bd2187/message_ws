@@ -22,13 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-app.get('/login', (req, res) => {
-    res.end('login');
-});
+var chatController = require('./controllers/chatController')(app);
 
 io.on('connection', (socket) => {
     console.log('User connected to app'); 
