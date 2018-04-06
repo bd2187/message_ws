@@ -4,10 +4,10 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-
 // Connect to Mongo DB
 const mongoose = require('mongoose');
 const database = require('./config/database');
+mongoose.Promise = global.Promise;
 mongoose.connect(database);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -22,6 +22,7 @@ app.set('view engine', 'pug');
 
 // Set up controllers
 var chatController = require('./controllers/chatController')(app);
+var userController = require('./controllers/userController')(app);
 
 // Set up websocket
 const websocket = require('./config/websocket');
