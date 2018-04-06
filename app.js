@@ -18,6 +18,10 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+app.get('/login', (req, res) => {
+    res.end('login');
+});
+
 io.on('connection', (socket) => {
     console.log('User connected to app'); 
     
