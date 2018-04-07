@@ -32,9 +32,11 @@ module.exports = function(app) {
                 .catch((err) => {
                     res.json({err: err});
                 });    
-
             });
         });        
+    });
+
+    app.post('/user/login/:username/:login', (req, res) => {
 
     });
 }
