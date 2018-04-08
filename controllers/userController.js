@@ -37,8 +37,13 @@ module.exports = function(app) {
         });        
     });
 
+    app.get('/user/login', (req, res) => {
+        res.render('login');
+    });
+
     app.post('/user/login', function(req, res, next) {
         passport.authenticate('local', function(err, user, info) {
+            console.log(user, info);
           if (err) {
               console.log(`Error: ${err}`);
               return next(err);
@@ -46,7 +51,10 @@ module.exports = function(app) {
 
           if (!user) {
               console.log('Either username or password is incorrect');
-              return res.redirect('/');
+
+              return res.render('login', {
+                  message: 'Either username or password is incorrect'
+              });
             }
 
           req.login(user, function(err) {
