@@ -3,7 +3,9 @@ extends layout.pug
 block content
     form(action="/user/login" method="post" id="loginForm")
         h1 Login
+        if message
+            p Either username or password is incorrect
         input(type="text" name="username" placeholder="Username" class="login-input")
-        input(type="password" name="username" placeholder="Password" class="login-input")
+        input(type="password" name="password" placeholder="Password" class="login-input")
         button Log in
 
