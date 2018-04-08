@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 module.exports = function(app) {
@@ -36,7 +37,26 @@ module.exports = function(app) {
         });        
     });
 
-    app.post('/user/login/:username/:login', (req, res) => {
+    app.post('/user/login', function(req, res, next) {
+        passport.authenticate('local', function(err, user, info) {
+          if (err) {
+              console.log(`Error: ${err}`);
+              return next(err);
+            }
 
-    });
+          if (!user) {
+              console.log('Either username or password is incorrect');
+              return res.redirect('/');
+            }
+
+          req.login(user, function(err) {
+            if (err) {
+                console.log(`Error: ${err}`);
+                return next(err);
+            }
+            
+            return res.redirect('/');
+          });
+        })(req, res, next);
+      });
 }

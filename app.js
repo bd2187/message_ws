@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const passport = require('passport');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -20,6 +22,12 @@ app.use(bodyParser.json());
 
 // set up static file middleware
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Passport middleware
+require('./config/passport')(passport);
+app.use(session({ secret: "foo" }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // set up views middleware
 app.set('views', path.join(__dirname, 'views'));
