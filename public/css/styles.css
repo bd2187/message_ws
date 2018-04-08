@@ -5,14 +5,19 @@
 }
 
 section {
-    background: red;
+    background: #F0EBE3;
     min-height: 100vh;
-    display: flex;
+    position: relative;
 }
 
 h1, h2, p {
     margin: 0;
     padding: 0;
+}
+
+.chat-container {
+    display: flex;
+    min-height: 100vh;
 }
 
 .users-container {
@@ -58,4 +63,35 @@ h1, h2, p {
 
 #chat-form button {
     padding: 0.5em;
+}
+
+#loginForm {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80%;
+    max-width: 468px;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    background: #557051;    
+    padding: 1em;
+    text-align: center;
+}
+
+#loginForm .login-input {
+    width: 80%;
+    display: block;
+    margin: 1em auto;
+    padding: 0.45em;
+}
+
+#loginForm h1 {
+    color: #f1f3f5;
+}
+
+#loginForm button {
+    padding: 0.5em;
+    background: #f1f3f5;
+    color: #557051;
 }
