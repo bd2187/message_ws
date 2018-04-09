@@ -3,42 +3,69 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 module.exports = function(app) {
-    app.post('/user/signup/:username/:password', (req, res) => {
-                    
+
+    app.get('/user/login', (req, res) => {
+        res.render('login');
+    });
+
+    app.get('/user/signup', (req, res) => {
+        res.render('signup');
+    });
+
+    app.post('/user/signup', (req, res) => {
+
+        var { email, username, password, password2 } = req.body;
+
+        if (!email || !username || !password || !password2) {
+            console.log('All fields are required.');
+            return res.render('signup', {
+                email,
+                username,
+                message: 'All fields are required.'
+            });
+        }
+
+        if (password !== password2) {
+            console.log('Passwords do not match.');
+            return res.render('signup', {
+                email,
+                username,
+                message: 'Passwords do not match.'
+            });
+        }
+
         // Hash password
         bcrypt.genSalt(10, function(err, salt) {
 
             if (err) {
                 console.log(err);
-                res.json({error: err});
+                return res.json({error: err});
             }
 
-            bcrypt.hash(req.params.password, salt, function(err, hash) {
+            bcrypt.hash(password, salt, function(err, hash) {
                 if (err) {
                     console.log(err);
-                    res.json({error: err});
+                    return res.json({error: err});
                 }
     
                 // Create new instance of user model
                 var newUser = new User({
-                    username: req.params.username,
+                    email,
+                    username,
                     password: hash
                 });
                 
                 // Save user to DB
                 newUser.save()
                 .then((user) => {
-                    res.json(user);
+                    // log in user here
+                    return res.json(user);
                 })
                 .catch((err) => {
-                    res.json({err: err});
+                    return res.json({err: err});
                 });    
             });
         });        
-    });
-
-    app.get('/user/login', (req, res) => {
-        res.render('login');
     });
 
     app.post('/user/login', function(req, res, next) {
