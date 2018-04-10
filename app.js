@@ -29,6 +29,19 @@ app.use(session({ secret: "foo" }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Set up local variables
+app.use((req, res, next) => {
+    if (req.isAuthenticated()) {
+        res.locals.USER = req.user;
+
+    }    
+    // } else {
+        // return res.redirect('/user/login');
+    // }
+    
+    next();
+});
+
 // set up views middleware
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
