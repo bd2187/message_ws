@@ -12,4 +12,6 @@ block content
                 input(type="text" id="chat-input")
                 button(type="submit" class="sendBtn") Send        
             script(src="/socket.io/socket.io.js")
-            script(src="/script.js")
+            script(src="/script.js")            
+            script.
+                Chat.init('!{username}');
