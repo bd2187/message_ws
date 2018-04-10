@@ -65,7 +65,7 @@ h1, h2, p {
     padding: 0.5em;
 }
 
-#loginForm {
+#loginSignupForm {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -79,19 +79,30 @@ h1, h2, p {
     text-align: center;
 }
 
-#loginForm .login-input {
+#loginSignupForm .login-input {
     width: 80%;
     display: block;
     margin: 1em auto;
     padding: 0.45em;
 }
 
-#loginForm h1 {
+#loginSignupForm h1,
+#loginSignupForm p {
     color: #f1f3f5;
 }
 
-#loginForm button {
+#loginSignupForm p {
+    margin: 1em 0;
+}
+
+#loginSignupForm button {
     padding: 0.5em;
     background: #f1f3f5;
     color: #557051;
+}
+
+#loginSignupForm #signUpLink {
+    display: block;
+    margin: 1em 0;
+    color: #f1f3f5;
 }
