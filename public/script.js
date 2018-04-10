@@ -3,7 +3,10 @@
 var socket = io();
 
 var Chat = {
-    init: function() {
+    init: function(username) {
+        
+        this.username = username;
+
         socket.on('connect', () => {
             console.log('Connected to WS');
         });
@@ -55,7 +58,7 @@ var Chat = {
             self.sendBtn.setAttribute('disabled', 'true');
 
             socket.emit('createMessage', {
-                sender: 'User',
+                sender: self.username,
                 message: self.chatInputEl.value
             }, function(status) {
                 console.log('Sent.', status);
@@ -63,7 +66,7 @@ var Chat = {
                 var timeSent = new Date().getTime();
 
                 self.sendBtn.removeAttribute('disabled');
-                self.appendMessage('User', self.chatInputEl.value, timeSent);
+                self.appendMessage(self.username, self.chatInputEl.value, timeSent);
                 self.chatInputEl.value = '';
             });            
         });
@@ -75,5 +78,3 @@ var Chat = {
         });
     }
 }
-
-Chat.init();
