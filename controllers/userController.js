@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const request = require('request');
 
 module.exports = function(app) {
 
@@ -16,6 +17,7 @@ module.exports = function(app) {
 
         var { email, username, password, password2 } = req.body;
 
+        // Check for empty form fields
         if (!email || !username || !password || !password2) {
             console.log('All fields are required.');
             return res.render('signup', {
@@ -25,6 +27,10 @@ module.exports = function(app) {
             });
         }
 
+        // Check for valid email
+        // Check for valid password
+
+        // Check if passwords match
         if (password !== password2) {
             console.log('Passwords do not match.');
             return res.render('signup', {
@@ -58,10 +64,15 @@ module.exports = function(app) {
                 // Save user to DB
                 newUser.save()
                 .then((user) => {
-                    // log in user here
-                    return res.json(user);
+                  
+                    // Render login page
+                    return res.render('login', {
+                        message: `You've successfully signed up!`,
+                        username: user.username
+                    });
                 })
                 .catch((err) => {
+                    console.log(err, 'ERR');
                     return res.json({err: err});
                 });    
             });
