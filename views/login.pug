@@ -1,11 +1,15 @@
 extends layout.pug
 
 block content
-    form(action="/user/login" method="post" id="loginForm")
+    form(action="/user/login" method="post" id="loginSignupForm")
         h1 Login
         if message
-            p Either username or password is incorrect
-        input(type="text" name="username" placeholder="Username" class="login-input")
+            p #{message}
+        if username
+            input(type="text" name="username" placeholder="Username" class="login-input" value=username)
+        else
+            input(type="text" name="username" placeholder="Username" class="login-input")        
         input(type="password" name="password" placeholder="Password" class="login-input")
+        a(href="/user/signup" id="signUpLink") Not a member? Sign up now
         button Log in
 
