@@ -14,6 +14,12 @@ module.exports = function(socket) {
         callbackFn('Success from server.');
     });
 
+    // Join Room
+    socket.on('join', (userAndRoom, callbackFn) => {
+        console.log(userAndRoom);
+        callbackFn();
+    });
+
     socket.on('disconnect', (socket) => {
         console.log('User disconnected from app');
     });    
