@@ -20,11 +20,27 @@ h1, h2, p {
     min-height: 100vh;
 }
 
-.users-container {
+.side-nav {
     background: #557051;
     width: 20%;
     color: #F0EBE3;
     padding: 1.5em;
+}
+
+.users-container,
+.rooms-container {
+    height: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#joinRoomContainer {
+    margin: 1em 0;
+}
+
+#joinRoomBtn {
+    color: #000;
 }
 
 #chat-messages {
