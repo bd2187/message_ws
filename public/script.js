@@ -7,7 +7,7 @@ var Chat = {
         
         this.username = username;
 
-        socket.on('connect', () => {
+        socket.on('connect', () => {            
             console.log('Connected to WS');
         });
 
@@ -27,9 +27,12 @@ var Chat = {
         this.chatInputEl = document.getElementById('chat-input');
         this.chatMessages = document.getElementById('chat-messages');
         this.sendBtn = document.getElementsByClassName('sendBtn')[0];
+        this.joinRoomContainer = document.getElementById('joinRoomContainer');
+        this.joinRoomInput = document.getElementById('joinRoomInput');
 
         this.createMessage();
         this.listenForMessages();
+        this.joinRoom();
     },
 
     appendMessage: function(sender = '', message = '', time) {
@@ -75,6 +78,36 @@ var Chat = {
     listenForMessages: function() {
         socket.on('newMessage', (data) => {            
             this.appendMessage(data.sender, data.message, data.time);
+        });
+    },
+
+    joinRoom: function() {
+        
+        var self = this;
+
+        this.joinRoomContainer.addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            const roomName = self.joinRoomInput.value;
+
+            if (roomName.trim().length > 0) {                
+
+                const userAndRoom = {
+                    user: self.username,
+                    room: roomName
+                }
+
+                socket.emit('join', userAndRoom, function(err) {
+                    if (err) {
+                        console.log(err);
+                        return window.location.href = '/';
+                    } else {
+                        console.log('No errors');
+                    }
+                });
+            }
+
         });
     }
 }
