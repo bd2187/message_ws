@@ -1,10 +1,19 @@
 extends layout.pug
 
 block content
-    div.chat-container        
-        div.users-container
-            h1 Users
-            ul(id="users-list")
+    div.chat-container
+
+        div.side-nav
+            div.users-container        
+                h1 Users
+                ul(id="users-list")
+
+            div.rooms-container
+                h1 Rooms
+                form(action="/room/join" method="POST" id="joinRoomContainer")
+                    input( id="joinRoomInput" type="text" placeholder="Room")
+                    button(id="joinRoomBtn" type="submit") Join
+                ul(id="rooms-list")
                         
         div.chat-area
             ul(id="chat-messages")
